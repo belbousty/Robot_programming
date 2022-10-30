@@ -373,21 +373,3 @@ export function clearBoard(id){
     let tbody = document.getElementById(id);
     tbody.parentNode.removeChild(tbody);
 }
-
-/* remove this comment section and type "make test" in order to see the stack of the following program */
-
-/*
-
-import {genPuzzle } from "./puzzle_Gen.js";
-import { nil } from "./stack.js";
-
-
-let puzzle=genPuzzle("star");
-let program = {
-        F1 : [[forward,' '], [right, 'b'], [CallF2, 'b']],
-        F2 : [[forward,' '], [right, 'r'], [CallF1, ' ']],
-};
-
-let stack = nil;
-ApplyFunctionStack(program, program.F1 ,puzzle, stack);
-*/

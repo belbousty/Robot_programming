@@ -97,5 +97,3 @@ export function genPuzzle(type) {
         }
     return puzzle;
 }
-
-//export const GenPuzzle = genPuzzle;
