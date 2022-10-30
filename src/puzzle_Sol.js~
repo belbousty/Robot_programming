@@ -1,0 +1,31 @@
+import {
+        forwardExp,
+        leftExp,
+        rightExp,
+        CallF1Exp,
+        CallF2Exp,
+        CallF3Exp
+} from "./functions.js";
+function puzzleSolution(type) {
+    switch (type) {
+    case "star":
+	return {
+	    F1 : [[forwardExp,' '], [rightExp, 'b'], [CallF2Exp, 'b']],
+	    F2 : [[forwardExp,' '], [rightExp, 'r'], [CallF1Exp, 'b']],
+	}
+	break;
+    case 0:
+	return {
+	    F1 : [[forwardExp,' '], [rightExp, 'b'], [rightExp, 'g'] , [CallF1Exp, ' '] ],
+	}
+	break;
+    case "mountains":
+	return  {
+	    F1 : [[forwardExp,'b'], [CallF1Exp, 'b'], [rightExp, 'r'], [forwardExp,' '],  [CallF2Exp,' ']],
+	    F2 : [[forwardExp,'g'], [CallF2Exp, 'g'], [leftExp, 'r'], [forwardExp,' '],  [CallF1Exp, ' ']]
+	};
+	break;
+    }
+}
+
+export const PuzzleSolution = puzzleSolution;

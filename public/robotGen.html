@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Robot Programming Visualizer</title>
+    <style>
+      body {
+          background-color: #404040;
+          color: #eee;
+          font-family: Helvetica, Arial;
+      }
+      
+      div#visualizer {
+          font: 25px/25px Arial;
+          width: 800px; height: 1000px;
+          background: #333;
+          margin: auto;
+      }
+      #visualizer table {
+          border-collapse: collapse;
+          margin: auto;
+      }
+
+      #visualizer_board td {
+          width: 40px; height: 40px;
+          text-align: center;
+          padding: 0px;
+          font-family: 'robots';
+          font-size:24px;
+      }
+      #visualizer_board td.red_tile {
+          border: 1px solid gray;
+
+          background: linear-gradient(to top left, #ff0000, #993333);
+      }
+      #visualizer_board td.green_tile {
+          border: 1px solid gray;
+          background: linear-gradient(to top left, #00aa44, #337733);
+      }
+      #visualizer_board td.blue_tile {
+          border: 1px solid gray;
+          background: linear-gradient(to top left, #0044ff, #333399);
+      }
+      #visualizer_board1 td {
+          width: 40px; height: 40px;
+          text-align: center;
+          padding: 0px;
+          font-family: 'robots';
+          font-size:24px;
+      }
+      #visualizer_board1 td.blue_tile {
+          border: 1px solid gray;
+          background: linear-gradient(to top left, #0044ff, #333399);
+      }
+      #visualizer_board1 td.red_tile {
+          border: 1px solid gray;
+          background: linear-gradient(to top left, #ff0000, #993333);
+      }
+      #visualizer_board1 td.green_tile {
+          border: 1px solid gray;
+          background: linear-gradient(to top left, #00aa44, #337733);
+      }
+      
+      #visualizer_board2 td {
+          width: 40px; height: 40px;
+          text-align: center;
+          padding: 0px;
+          font-family: 'robots';
+          font-size:24px;
+      }
+      #visualizer_board2 td.red_tile {
+          border: 1px solid gray;
+          background: linear-gradient(to top left, #ff0000, #993333);
+      }
+      #visualizer_board2 td.green_tile {
+          border: 1px solid gray;
+          background: linear-gradient(to top left, #00aa44, #337733);
+      }
+      #visualizer_board2 td.blue_tile {
+          border: 1px solid gray;
+          background: linear-gradient(to top left, #0044ff, #333399);
+      }
+      #visualizer_board3 td {
+          width: 40px; height: 40px;
+          text-align: center;
+          padding: 0px;
+          font-family: 'robots';
+          font-size:24px;
+      }
+      #visualizer_board3 td.red_tile {
+          border: 1px solid gray;
+          background: linear-gradient(to top left, #ff0000, #993333);
+      }
+      #visualizer_board3 td.green_tile {
+          border: 1px solid gray;
+          background: linear-gradient(to top left, #00aa44, #337733);
+      }
+      #visualizer_board3 td.blue_tile {
+          border: 1px solid gray;
+          background: linear-gradient(to top left, #0044ff, #333399);
+      }
+      #visualizer_buttons {
+          text-align: center;
+      }
+      @font-face {
+          font-family: 'robots';
+          src: url('./robot.ttf') format('truetype');
+      }
+      .play {
+	  width: 0; 
+	  height: 0; 
+	  border-top: 10px solid transparent;
+	  border-bottom: 10px solid transparent; 
+	  border-left:20px solid black;
+      }
+      .dot {
+          height: 12px;
+          width: 12px;
+          border-radius: 100%;
+          border: solid red;
+          background-color: red;
+      }
+      .square {
+	  border: 1px solid black;
+	  background-color: black;
+	  padding: 1px 9px;
+      }
+      .arrow {
+          border: solid black;
+          border-width: 0 3px 3px 0;
+          display: inline-block;
+          padding: 3px;
+      }
+      
+      .right {
+          transform: rotate(-45deg);
+          -webkit-transform: rotate(-45deg);
+      }
+      
+      .left {
+          transform: rotate(135deg);
+          -webkit-transform: rotate(135deg);
+      }
+      
+      .up {
+          transform: rotate(-135deg);
+          -webkit-transform: rotate(-135deg);
+      }
+      
+      .down {
+          transform: rotate(45deg);
+          -webkit-transform: rotate(45deg);
+      }
+      /****************************/
+      .displaying button {
+	  border: 1px outset black;
+	  background-color:  gray;
+	  height:40px;
+	  width:40px;
+	  cursor:pointer;
+	  position: relative;
+	  top: 100px; left: 0px;
+      }
+      
+      /* Clear floats (clearfix hack) */
+      .displayingF1:after {
+          content: "";
+          clear: both;
+          display: table;
+        }
+      .displaying button:not(:last-child) {
+          border-right: none; /* Prevent double borders */
+      }
+      
+      /* Add a background color on hover */
+      .displaying button:hover {
+          background-color: #3e8e41;
+      }
+      /****************************/
+      .mouvements button {
+	  border: 1px outset black;
+	  background-color:  gray;
+	  height:40px;
+	  width:40px;
+	  cursor:pointer;
+	  position: relative;
+	  top: 200px; left: 200px;
+      }
+      
+      /* Clear floats (clearfix hack) */
+      .mouvementsF1:after {
+          content: "";
+          clear: both;
+          display: table;
+        }
+      .mouvements button:not(:last-child) {
+          border-right: none; /* Prevent double borders */
+      }
+      
+      /* Add a background color on hover */
+      .mouvements button:hover {
+          background-color: #3e8e41;
+      }
+      /*************************************/
+      .functions button {
+	  border: 1px outset black;
+	  background-color:  gray;
+	  height:40px;
+	  width:40px;
+	  cursor:pointer;
+	  position: relative;
+	  top: -400px; left: 300px;
+      }
+      
+      /* Clear floats (clearfix hack) */
+      .functions:after {
+          content: "";
+          clear: both;
+          display: table;
+        }
+      
+      .functions button:not(:last-child) {
+          border-right: none; /* Prevent double borders */
+      }
+      
+      /* Add a background color on hover */
+      .functions button:hover {
+          background-color: #3e8e41;
+      }
+      /*************************************/
+      
+      
+    </style>
+  </head>
+  <body>
+    
+    <div id="visualizer">
+      <table id="table"  >
+        <tbody id="visualizer_board">
+      </table>
+      <div id="movements" class="displaying"  style="text-align:center">
+	<button id="play">Play</button>
+	<button id="move"><i class="square"></i></button>
+        <!<button <i class="dot"</i </button-->
+	</div>
+      <div id="F1" class="mouvements" style="display:none" style="text-align:center">
+	<button id="f1" >F1</button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+      </div>
+
+      <div id="F2" class="mouvements" style="display:none" style="text-align:center">
+	<button id="f2">F2</button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+      </div>
+      
+      <div id="F3" class="mouvements" style="display:none" style="text-align:center">
+	<button id="f3" >F3</button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+
+      </div>
+      
+      <div id="F4" class="mouvements" style="display:none" style="text-align:center">
+	<button id="f4">F4</button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	<button id="empty" style="display:none"><i id="me"></i></button>
+	
+      </div>
+
+      </div>
+</body>
+  <script type="module" src="../src/functions.js"></script>
+  <script type="module" src="../src/indexeGen.js"></script>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Robot Programming Visualizer</title>
+    <style>body {
+  color: #eee;
+  background-color: #404040;
+  font-family: Helvetica, Arial;
+}
+
+div#visualizer {
+  width: 680px;
+  height: 720px;
+  background: #333;
+  margin: auto;
+  font: 25px / 25px Arial;
+}
+
+#visualizer table {
+  border-collapse: collapse;
+  margin: auto;
+}
+
+#visualizer_board td {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  padding: 0;
+  font-family: robots;
+  font-size: 24px;
+}
+
+#visualizer_board td.red_tile {
+  background: linear-gradient(to top left, red, #933);
+  border: 1px solid gray;
+}
+
+#visualizer_board td.green_tile {
+  background: linear-gradient(to top left, #0a4, #373);
+  border: 1px solid gray;
+}
+
+#visualizer_board td.blue_tile {
+  background: linear-gradient(to top left, #04f, #339);
+  border: 1px solid gray;
+}
+
+#visualizer_buttons {
+  text-align: center;
+}
+
+@font-face {
+  font-family: robots;
+  src: url("robot.7f452fee.ttf") format("truetype");
+}
+
+.play {
+  width: 0;
+  height: 0;
+  border: 5px solid #0000;
+  border-left: 10px solid #000;
+  border-right-width: 0;
+}
+
+.dot {
+  height: 12px;
+  width: 12px;
+  background-color: red;
+  border:  solid red;
+  border-radius: 100%;
+}
+
+.arrow {
+  border: 3px solid #000;
+  border-width: 0 3px 3px 0;
+  padding: 3px;
+  display: inline-block;
+}
+
+.right {
+  transform: rotate(-45deg);
+}
+
+.left {
+  transform: rotate(135deg);
+}
+
+.up {
+  transform: rotate(-135deg);
+}
+
+.down {
+  transform: rotate(45deg);
+}
+
+.btn-group button {
+  color: #fff;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  float: center;
+  background-color: #a0a0a0;
+}
+
+.btn-group:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.btn-group button:not(:last-child) {
+  border-right: none;
+}
+
+.btn-group button:hover {
+  background-color: #3e8e41;
+}
+
+</style>
+  </head>
+  <body>
+    
+    <div id="visualizer">
+      <table>
+	<tbody id="visualizer_board">
+	</tbody>
+      </table>
+       
+      <div id="movements" class="btn-group" style="text-align: center">
+	<button id="forward"><i class="arrow up"></i></button>
+	<button id="right_rotation"><i class="arrow right"></i></button>
+	<button id="left_rotation"><i class="arrow left"></i></button>
+	<button>F1</button>
+	<button id="play"><i class="play"></i></button>
+	
+      </div>
+      
+    </div>
+  </body>
+    <script src="/robot.4eb7fd78.js" defer=""></script>
+    <script src="/robot.3d214d75.js" defer=""></script>
+</html>

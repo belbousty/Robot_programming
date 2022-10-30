@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Robot Programming Visualizer</title>
+    <style>body {
+  color: #eee;
+  background-color: #404040;
+  font-family: Helvetica, Arial;
+}
+
+div#visualizer {
+  width: 800px;
+  height: 1000px;
+  background: #333;
+  margin: auto;
+  font: 25px / 25px Arial;
+}
+
+#visualizer table {
+  border-collapse: collapse;
+  margin: auto;
+}
+
+#visualizer_board td {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  padding: 0;
+  font-family: robots;
+  font-size: 24px;
+}
+
+#visualizer_board td.red_tile {
+  background: linear-gradient(to top left, red, #933);
+  border: 1px solid gray;
+}
+
+#visualizer_board td.green_tile {
+  background: linear-gradient(to top left, #0a4, #373);
+  border: 1px solid gray;
+}
+
+#visualizer_board td.blue_tile {
+  background: linear-gradient(to top left, #04f, #339);
+  border: 1px solid gray;
+}
+
+#visualizer_board1 td {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  padding: 0;
+  font-family: robots;
+  font-size: 24px;
+}
+
+#visualizer_board1 td.blue_tile {
+  background: linear-gradient(to top left, #04f, #339);
+  border: 1px solid gray;
+}
+
+#visualizer_board1 td.red_tile {
+  background: linear-gradient(to top left, red, #933);
+  border: 1px solid gray;
+}
+
+#visualizer_board1 td.green_tile {
+  background: linear-gradient(to top left, #0a4, #373);
+  border: 1px solid gray;
+}
+
+#visualizer_board2 td {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  padding: 0;
+  font-family: robots;
+  font-size: 24px;
+}
+
+#visualizer_board2 td.red_tile {
+  background: linear-gradient(to top left, red, #933);
+  border: 1px solid gray;
+}
+
+#visualizer_board2 td.green_tile {
+  background: linear-gradient(to top left, #0a4, #373);
+  border: 1px solid gray;
+}
+
+#visualizer_board2 td.blue_tile {
+  background: linear-gradient(to top left, #04f, #339);
+  border: 1px solid gray;
+}
+
+#visualizer_board3 td {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  padding: 0;
+  font-family: robots;
+  font-size: 24px;
+}
+
+#visualizer_board3 td.red_tile {
+  background: linear-gradient(to top left, red, #933);
+  border: 1px solid gray;
+}
+
+#visualizer_board3 td.green_tile {
+  background: linear-gradient(to top left, #0a4, #373);
+  border: 1px solid gray;
+}
+
+#visualizer_board3 td.blue_tile {
+  background: linear-gradient(to top left, #04f, #339);
+  border: 1px solid gray;
+}
+
+#visualizer_buttons {
+  text-align: center;
+}
+
+@font-face {
+  font-family: robots;
+  src: url("robot.41b9da4a.ttf") format("truetype");
+}
+
+.play {
+  width: 0;
+  height: 0;
+  border-top: 10px solid #0000;
+  border-bottom: 10px solid #0000;
+  border-left: 20px solid #000;
+}
+
+.dot {
+  height: 12px;
+  width: 12px;
+  background-color: red;
+  border:  solid red;
+  border-radius: 100%;
+}
+
+.square {
+  background-color: #000;
+  border: 1px solid #000;
+  padding: 1px 9px;
+}
+
+.arrow {
+  border: 3px solid #000;
+  border-width: 0 3px 3px 0;
+  padding: 3px;
+  display: inline-block;
+}
+
+.right {
+  transform: rotate(-45deg);
+}
+
+.left {
+  transform: rotate(135deg);
+}
+
+.up {
+  transform: rotate(-135deg);
+}
+
+.down {
+  transform: rotate(45deg);
+}
+
+.displaying button {
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+  background-color: gray;
+  border: 1px outset #000;
+  position: relative;
+  top: 100px;
+  left: 0;
+}
+
+.displayingF1:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.displaying button:not(:last-child) {
+  border-right: none;
+}
+
+.displaying button:hover {
+  background-color: #3e8e41;
+}
+
+.mouvements button {
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+  background-color: gray;
+  border: 1px outset #000;
+  position: relative;
+  top: 200px;
+  left: 200px;
+}
+
+.mouvementsF1:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.mouvements button:not(:last-child) {
+  border-right: none;
+}
+
+.mouvements button:hover {
+  background-color: #3e8e41;
+}
+
+.functions button {
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+  background-color: gray;
+  border: 1px outset #000;
+  position: relative;
+  top: -400px;
+  left: 300px;
+}
+
+.functions:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.functions button:not(:last-child) {
+  border-right: none;
+}
+
+.functions button:hover {
+  background-color: #3e8e41;
+}
+
+</style>
+  </head>
+  <body>
+    
+    <div id="visualizer">
+      <table id="table">
+        <tbody id="visualizer_board">
+            <center><img src="/init.b3aaea8f.png" id="img"></center>
+      </tbody></table>
+      <div id="movements" class="displaying" style="text-align: center">
+	<button id="play">Play</button>
+	<button id="move"><i class="square"></i></button>
+	<button id="puzzle1">1</button>
+	<button id="puzzle2">2</button>
+	<button id="puzzle3">3</button>
+	<button id="puzzle4">4</button>
+        
+	</div>
+      <div id="F1" class="mouvements" style="display: none">
+	<button id="f1">F1</button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+      </div>
+
+      <div id="F2" class="mouvements" style="display: none">
+	<button id="f2">F2</button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+      </div>
+      
+      <div id="F3" class="mouvements" style="display: none">
+	<button id="f3">F3</button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+      </div>
+      
+      <div id="F4" class="mouvements" style="display: none">
+	<button id="f4">F4</button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+	<button id="empty" style="display: none"><i id="me"></i></button>
+      </div>
+
+      </div>
+</body>
+  <script src="/robot.3fbd053a.js" defer=""></script>
+  <script src="/robot.975ef6c8.js" defer=""></script>
+</html>
